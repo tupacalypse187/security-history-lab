@@ -1,0 +1,32 @@
+# ==========================================
+# Historical Malware Education - .gitignore
+# ==========================================
+
+# --- Generated simulation logs (per-run, per-machine) ---
+*_educational_log.txt
+*.log
+
+# --- Windows ---
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+System Volume Information/
+
+# --- macOS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# --- IDEs / Editors ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Build / Temp ---
+*.tmp
+*.bak
+*.cache
+node_modules/
