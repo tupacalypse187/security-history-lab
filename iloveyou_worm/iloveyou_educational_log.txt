@@ -1,0 +1,28 @@
+[5/4/2026 6:20:30 AM] ============================================
+[5/4/2026 6:20:30 AM] EDUCATIONAL ILOVEYOU WORM DEMONSTRATION
+[5/4/2026 6:20:30 AM] Date: 5/4/2026 6:20:30 AM
+[5/4/2026 6:20:30 AM] ============================================
+[5/4/2026 6:20:30 AM] --- PHASE 1: Self-Replication ---
+[5/4/2026 6:20:30 AM] SIMULATED: Would copy to C:\Windows\System32\MSKernel32.vbs
+[5/4/2026 6:20:30 AM] SIMULATED: Would copy to C:\Windows\WinFilesystem.vbs
+[5/4/2026 6:20:30 AM] --- PHASE 2: Persistence ---
+[5/4/2026 6:20:30 AM] SIMULATED: Would write registry key: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run\MSKernel32
+[5/4/2026 6:20:30 AM] --- PHASE 3: Email Propagation ---
+[5/4/2026 6:20:35 AM] SIMULATED: Would enumerate Outlook address book
+[5/4/2026 6:20:35 AM] SIMULATED: Would send emails to all contacts
+[5/4/2026 6:20:35 AM] EMAIL SUBJECT: ILOVEYOU
+[5/4/2026 6:20:35 AM] EMAIL BODY: kindly check the attached LOVE LETTER😍
+[5/4/2026 6:20:35 AM] ATTACHMENT: LOVE-LETTER-FOR-YOU.TXT.vbs
+[5/4/2026 6:20:35 AM] NOTE: Original worm sent emails WITHOUT user confirmation
+[5/4/2026 6:20:35 AM] --- PHASE 4: File Destruction ---
+[5/4/2026 6:20:35 AM] SIMULATED: Would scan all local drives for target files
+[5/4/2026 6:20:35 AM] TARGET EXTENSIONS: .mp3, .mp2, .wav, .avi, .mov, .jpg, .jpeg, .png, .gif, .css, .js, .vbs, .doc, .xls
+[5/4/2026 6:20:35 AM] ⚠️ ORIGINAL WORM: OVERWROTE these files with copies of itself
+[5/4/2026 6:20:35 AM] ⚠️ ORIGINAL WORM: Original files were PERMANENTLY DESTROYED
+[5/4/2026 6:20:35 AM] --- PHASE 5: mIRC Infection ---
+[5/4/2026 6:20:35 AM] SIMULATED: Would check for mIRC installation at: C:\Windows\mIRC
+[5/4/2026 6:20:35 AM] SIMULATED: Would create malicious script.ini if found
+[5/4/2026 6:20:35 AM] ============================================
+[5/4/2026 6:20:35 AM] DEMONSTRATION COMPLETE
+[5/4/2026 6:20:36 AM] No actual harm was done - this is educational
+[5/4/2026 6:20:36 AM] ============================================

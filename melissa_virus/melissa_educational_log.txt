@@ -1,0 +1,31 @@
+=== MELISSA VIRUS - EDUCATIONAL SIMULATION ===
+Original: March 26, 1999 by David L. Smith
+Running simulation at: 5/4/2026 6:21:12 AM
+
+Attempting to spread via email...
+OUTLOOK NOT FOUND - Cannot spread via email (SAFETY: Simulated)
+NOTE: Original Melissa required Outlook to be installed
+
+SIMULATED: Would access Outlook address book via MAPI
+SIMULATED: Would enumerate contacts
+SIMULATED: Would send to FIRST 50 contacts
+SIMULATED: Each email contained infected document
+EMAIL SUBJECT PATTERN: 'Important Message From [ContactName]'
+EMAIL BODY: 'Here is that document that you asked for...'
+NOTE: Social engineering - appeared to come from trusted contact
+Total simulated sends: 0 / 50
+
+--- TEMPLATE INFECTION SIMULATION ---
+SIMULATED: Would check Normal.dot for existing infection
+SIMULATED: Would copy virus macros to Normal.dot template
+SIMULATED: All new documents would now be infected
+SIMULATED: Would save virus macros in current document
+
+--- EVASION TECHNIQUES USED BY MELISSA ---
+1. Minimal destructive payload - just self-replicates
+2. Social engineering via personalized emails
+3. Strategic 50-contact limit (spread vs stealth balance)
+4. Normal.dot template infection for document-based spread
+
+=== SIMULATION COMPLETE ===
+No actual harm was done - this is educational

