@@ -1,8 +1,8 @@
-# QWEN.md - Historical Malware Education
+# QWEN.md - Security History Lab
 
 ## Project Context
 
-This is an **educational cybersecurity research repository** containing annotated source code recreations of historically significant malware programs:
+This is an **educational cybersecurity research repository** containing annotated recreations of historically significant security events:
 
 | Sample | Year | Type | Directory |
 |--------|------|------|-----------|
@@ -12,6 +12,8 @@ This is an **educational cybersecurity research repository** containing annotate
 | Code Red Worm | 2001 | Fileless HTTP worm | `code_red_worm/` |
 | Conficker Worm | 2008 | Network/botnet worm | `conficker_worm/` |
 | Stuxnet | 2010 | SCADA cyberweapon | `stuxnet_worm/` |
+| Heartbleed | 2014 | OpenSSL vulnerability | `heartbleed_vuln/` |
+| Shellshock | 2014 | Bash vulnerability | `shellshock_vuln/` |
 | WannaCry | 2017 | Ransomware + worm | `wannacry_ransomware/` |
 | NotPetya | 2017 | Wiper (fake ransomware) | `notpetya_ransomware/` |
 
@@ -53,6 +55,7 @@ All recreations are **SAFETY-MODIFIED** for educational purposes:
 - Include historical context in comments
 - Use ASCII attack-chain diagrams in READMEs
 - Include CVE numbers, dates, and impact statistics
+- **README heading anchors: always use explicit `<a id="..."></a>` tags above `##` headings.** GitHub strips emojis from heading-generated anchors, so ToC links like `[Section](#section)` require manual anchors. Never rely on auto-generated anchors with emoji headings.
 
 ## Safety Requirements
 

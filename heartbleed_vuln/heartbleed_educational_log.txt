@@ -1,0 +1,132 @@
+[5/4/2026 6:58:24 AM] ============================================
+[5/4/2026 6:58:24 AM] EDUCATIONAL HEARTBLEED VULNERABILITY DEMONSTRATION
+[5/4/2026 6:58:24 AM] Date: 5/4/2026 6:58:24 AM
+[5/4/2026 6:58:24 AM] ============================================
+[5/4/2026 6:58:24 AM] 
+[5/4/2026 6:58:24 AM] === PHASE 1: TLS Heartbeat Protocol ===
+[5/4/2026 6:58:24 AM] PROTOCOL: RFC 6520 - TLS Heartbeat Extension
+[5/4/2026 6:58:24 AM] 
+[5/4/2026 6:58:24 AM] LEGITIMATE HEARTBEAT EXCHANGE:
+[5/4/2026 6:58:24 AM] 
+[5/4/2026 6:58:24 AM]   Client -> Server: HEARTBEAT REQUEST
+[5/4/2026 6:58:24 AM]     Payload: "HELLO"
+[5/4/2026 6:58:24 AM]     Payload Length: 5
+[5/4/2026 6:58:24 AM] 
+[5/4/2026 6:58:24 AM]   Server -> Client: HEARTBEAT RESPONSE
+[5/4/2026 6:58:24 AM]     Payload: "HELLO" (echoed back)
+[5/4/2026 6:58:25 AM]     Payload Length: 5
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM]   Purpose: Keep connection alive, no renegotiation needed
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM] === PHASE 2: The Vulnerability ===
+[5/4/2026 6:58:25 AM] CVE: CVE-2014-0160
+[5/4/2026 6:58:25 AM] TYPE: Buffer Over-Read (CWE-126)
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM] VULNERABLE C CODE PATTERN:
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM]   1. Client sends: Payload = "A" (1 byte)
+[5/4/2026 6:58:25 AM]      Client claims: Payload Length = 65535 (64KB)
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM]   2. Server reads length from request: 65535
+[5/4/2026 6:58:25 AM]      Server does NOT verify length matches actual data
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM]   3. Server allocates 64KB buffer
+[5/4/2026 6:58:25 AM]      Server copies 64KB from memory starting at payload
+[5/4/2026 6:58:25 AM]      Only 1 byte is the actual payload...
+[5/4/2026 6:58:25 AM]      Remaining 65534 bytes are whatever is in server memory
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM]   4. Server sends 64KB back to client
+[5/4/2026 6:58:25 AM]      First byte: "A" (the actual payload)
+[5/4/2026 6:58:25 AM]      Remaining 65534 bytes: LEAKED SERVER MEMORY
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM] NOTE: This is a READ vulnerability, not WRITE
+[5/4/2026 6:58:25 AM] NOTE: Attacker cannot modify server data, only read it
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM] === PHASE 3: Memory Leak Demonstration ===
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM] SIMULATED SERVER MEMORY LAYOUT:
+[5/4/2026 6:58:25 AM]   Address 0x0000: [Heartbeat payload data]
+[5/4/2026 6:58:25 AM]   Address 0x0040: [SSL/TLS private key fragments]
+[5/4/2026 6:58:25 AM]   Address 0x1000: [User passwords in plaintext]
+[5/4/2026 6:58:25 AM]   Address 0x2000: [Session cookies and tokens]
+[5/4/2026 6:58:25 AM]   Address 0x3000: [HTTP request headers]
+[5/4/2026 6:58:25 AM]   Address 0x4000: [Database credentials]
+[5/4/2026 6:58:25 AM]   Address 0x5000: [Encryption keys]
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM] HEARTBEAT RESPONSE (simulated - what attacker receives):
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM]   Legitimate payload: "test" (4 bytes)
+[5/4/2026 6:58:25 AM]   Leaked memory (simulated):
+[5/4/2026 6:58:25 AM]     SSL Private Key fragment: 30:82:01:22:02:01:00:30...
+[5/4/2026 6:58:25 AM]     User password: admin:S3cur3P@ssw0rd
+[5/4/2026 6:58:25 AM]     Session cookie: PHPSESSID=abc123def456...
+[5/4/2026 6:58:25 AM]     HTTP Header: Authorization: Bearer eyJ0eXAiOiJKV1Qi...
+[5/4/2026 6:58:25 AM]     DB Credential: root:mysql_p@ss_2014
+[5/4/2026 6:58:25 AM]     Encryption key: a8f2c9d4e7b1f3a6c5d8e2f9b4a7c1d3
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:25 AM] NOTE: Real Heartbleed leaked raw binary memory
+[5/4/2026 6:58:25 AM] NOTE: Attackers ran automated scripts to harvest data
+[5/4/2026 6:58:25 AM] NOTE: Private keys could be reconstructed from multiple requests
+[5/4/2026 6:58:25 AM] 
+[5/4/2026 6:58:26 AM] === PHASE 4: Attack Simulation ===
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] ATTACKER BEHAVIOR (simulated):
+[5/4/2026 6:58:26 AM]   Heartbeat requests sent: 100
+[5/4/2026 6:58:26 AM]   Data leaked per request: 64 KB
+[5/4/2026 6:58:26 AM]   Total data leaked: 6400 KB (6.25 MB)
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] WHAT COULD BE EXTRACTED:
+[5/4/2026 6:58:26 AM]   - SSL/TLS private keys (compromises all encrypted traffic)
+[5/4/2026 6:58:26 AM]   - User credentials (passwords, session tokens)
+[5/4/2026 6:58:26 AM]   - Database connection strings
+[5/4/2026 6:58:26 AM]   - API keys and secrets
+[5/4/2026 6:58:26 AM]   - Email contents
+[5/4/2026 6:58:26 AM]   - Any data in server memory at time of request
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] NOTE: Attack left NO TRACE in server logs
+[5/4/2026 6:58:26 AM] NOTE: No way to know if you were targeted
+[5/4/2026 6:58:26 AM] NOTE: Estimated 2-3% of all TLS connections exploited
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] === PHASE 5: The Fix ===
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] VULNERABLE CODE:
+[5/4/2026 6:58:26 AM]   n2s(p, payload);
+[5/4/2026 6:58:26 AM]   memcpy(bp, pl, payload);  // No bounds check!
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] FIXED CODE (OpenSSL 1.0.1g+):
+[5/4/2026 6:58:26 AM]   n2s(p, payload);
+[5/4/2026 6:58:26 AM]   if (payload + 16 > s->s3->rrec.length) return 0;
+[5/4/2026 6:58:26 AM]   // BOUNDS CHECK: Verify length <= actual record size
+[5/4/2026 6:58:26 AM]   memcpy(bp, pl, payload);  // Now safe
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] PATCH RELEASED: April 7, 2014 (OpenSSL 1.0.1g)
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] NOTE: The fix was ONE LINE of code
+[5/4/2026 6:58:26 AM] NOTE: But the impact of the missing line was ENORMOUS
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] === PHASE 6: Impact and Aftermath ===
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] SCOPE OF IMPACT:
+[5/4/2026 6:58:26 AM]   - 66% of all internet servers running OpenSSL
+[5/4/2026 6:58:26 AM]   - 500,000+ SSL certificates potentially compromised
+[5/4/2026 6:58:26 AM]   - Major sites affected: Yahoo, Flickr, Imgur, OKCupid
+[5/4/2026 6:58:26 AM]   - Government servers, hospitals, banks all vulnerable
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] AFTERMATH:
+[5/4/2026 6:58:26 AM]   - Mass certificate revocation and reissuance
+[5/4/2026 6:58:26 AM]   - Increased funding for open source security
+[5/4/2026 6:58:26 AM]   - Core Infrastructure Initiative created (Linux Foundation)
+[5/4/2026 6:58:26 AM]   - Widespread adoption of memory-safe languages discussed
+[5/4/2026 6:58:26 AM]   - Better vulnerability disclosure processes developed
+[5/4/2026 6:58:26 AM]   - Google Safe Browsers added Heartbleed detection
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] DISCOVERED BY:
+[5/4/2026 6:58:26 AM]   - Neel Mehta (Google Security Team)
+[5/4/2026 6:58:26 AM]   - Codenomicon researchers (independently)
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] ESTIMATED COST: Hundreds of millions in certificate reissuance
+[5/4/2026 6:58:26 AM] 
+[5/4/2026 6:58:26 AM] ============================================
+[5/4/2026 6:58:26 AM] DEMONSTRATION COMPLETE
+[5/4/2026 6:58:26 AM] No actual harm was done - this is educational
+[5/4/2026 6:58:26 AM] ============================================

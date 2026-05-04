@@ -1,20 +1,21 @@
-# 🦠 Historical Malware Education
+# 🛡️ Security History Lab
 
-> **A cybersecurity research collection featuring annotated source code recreations of historically significant malware**
+> **A cybersecurity research collection featuring annotated recreations of historically significant malware, vulnerabilities, and security incidents**
 
 ---
 
 ## 📋 Table of Contents
 
-- [🎯 Overview](#-overview)
-- [🗂️ Samples](#️-samples)
-- [🛡️ Security Lessons](#️-security-lessons)
-- [🔬 How to Run](#-how-to-run)
-- [🔮 Future Research](#-future-research)
-- [⚖️ Legal Disclaimer](#-legal-disclaimer)
+- [🎯 Overview](#overview)
+- [🗂️ Samples](#samples)
+- [🛡️ Security Lessons](#security-lessons)
+- [🔬 How to Run](#how-to-run)
+- [🔮 Future Research](#future-research)
+- [⚖️ Legal Disclaimer](#legal-disclaimer)
 
 ---
 
+<a id="overview"></a>
 ## 🎯 Overview
 
 | Attribute | 📝 Details |
@@ -34,6 +35,7 @@
 
 ---
 
+<a id="samples"></a>
 ## 🗂️ Samples
 
 Each sample has its own directory with source code, documentation, and a safe runner script.
@@ -71,21 +73,29 @@ Each sample has its own directory with source code, documentation, and a safe ru
 |--------|------|------|--------|-----------|
 | 🧠 **Brain** | Jan 1986 | Boot Sector Virus | First PC virus ever | [`brain_virus/`](brain_virus/) |
 
+### 🕳️ Notable Vulnerabilities
+
+| Sample | Date | Type | Impact | Directory |
+|--------|------|------|--------|-----------|
+| 🩸 **Heartbleed** | Apr 2014 | Buffer Over-Read (OpenSSL) | 66% of internet servers | [`heartbleed_vuln/`](heartbleed_vuln/) |
+| 🐚 **Shellshock** | Sep 2014 | RCE via Env Injection (Bash) | 500M+ systems, 25-yr bug | [`shellshock_vuln/`](shellshock_vuln/) |
+
 ---
 
+<a id="security-lessons"></a>
 ## 🛡️ Security Lessons
 
 ### Evolution Timeline
 
 ```
-1986 ──── 1999 ──── 2000 ──── 2001 ──── 2008 ──── 2010 ──── 2017
-  │         │         │         │         │         │         │
- Brain   Melissa   ILOVEYOU  Code Red  Conficker  Stuxnet  WannaCry
-                                                   NotPetya
-  │         │         │         │         │         │         │
-  ▼         ▼         ▼         ▼         ▼         ▼         ▼
-Boot     Macro    Social    Fileless   Multi-    Cyber-    Ransom/
-Sector   Email    Engin.    HTTP       Vector    weapon    Wiper
+1986 ──── 1999 ──── 2000 ──── 2001 ──── 2008 ──── 2010 ──── 2014 ──── 2017
+  │         │         │         │         │         │         │         │
+ Brain   Melissa   ILOVEYOU  Code Red  Conficker  Stuxnet  Heartbleed  WannaCry
+  │         │         │         │         │         │    Shellshock  NotPetya
+  │         │         │         │         │         │         │         │
+  ▼         ▼         ▼         ▼         ▼         ▼         ▼         ▼
+Boot     Macro    Social    Fileless   Multi-    Cyber-    Vulns:    Ransom/
+Sector   Email    Engin.    HTTP       Vector    weapon    OpenSSL   Wiper
          Virus
 ```
 
@@ -101,6 +111,9 @@ Sector   Email    Engin.    HTTP       Vector    weapon    Wiper
 | Supply chain attacks | NotPetya | SolarWinds, Log4j era |
 | Ransomware evolution | WannaCry, NotPetya | Current top threat |
 | State-sponsored | Stuxnet, NotPetya | APT landscape |
+| One-line bugs, massive impact | Heartbleed | Code review importance |
+| 25-year-old bugs | Shellshock | Legacy system risk |
+| Environment trust boundaries | Shellshock | Input validation everywhere |
 
 ### Impact on Security
 
@@ -116,9 +129,14 @@ Sector   Email    Engin.    HTTP       Vector    weapon    Wiper
 | Cyber insurance maturity | NotPetya |
 | Supply chain security focus | NotPetya |
 | Ransomware task forces | WannaCry |
+| Open source security funding | Heartbleed |
+| Core Infrastructure Initiative | Heartbleed |
+| Environment variable hardening | Shellshock |
+| IoT/embedded patch urgency | Shellshock |
 
 ---
 
+<a id="how-to-run"></a>
 ## 🔬 How to Run
 
 Each sample directory contains:
@@ -142,6 +160,7 @@ cscript //nologo conficker_educational.vbs
 
 ---
 
+<a id="future-research"></a>
 ## 🔮 Future Research
 
 These samples are candidates for future addition to this collection:
@@ -154,12 +173,13 @@ These samples are candidates for future addition to this collection:
 | **Flame** (2012) | 2012 | Espionage Malware | State-sponsored, 20MB modular spyware |
 | **CIH/Chernobyl** (1998) | 1998 | File Infector | First to damage BIOS hardware |
 | **DarkSide/Colonial Pipeline** (2021) | Modern | Ransomware | Critical infrastructure disruption |
-| **Log4Shell exploits** (2021) | Modern | Supply Chain | Most widely exploited vulnerability |
+| **EternalBlue/NSA Leak** (2017) | Modern | Exploit Kit | Powered WannaCry + NotPetya |
 
-Want to contribute a sample? See the [Contributing](#contributing) section.
+Want to contribute a sample? See the [🤝 Contributing](#contributing) section.
 
 ---
 
+<a id="legal-disclaimer"></a>
 ## ⚖️ Legal Disclaimer
 
 ```
@@ -179,6 +199,7 @@ Want to contribute a sample? See the [Contributing](#contributing) section.
 
 ---
 
+<a id="contributing"></a>
 ## 🤝 Contributing
 
 This is an educational repository. If you'd like to contribute:

