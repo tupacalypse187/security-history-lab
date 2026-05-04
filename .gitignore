@@ -2,9 +2,11 @@
 # Historical Malware Education - .gitignore
 # ==========================================
 
-# --- Generated simulation logs (per-run, per-machine) ---
-*_educational_log.txt
-*.log
+# --- Generated simulation logs ---
+# Existing logs are tracked. New runs append to tracked files.
+# Do NOT add *.log here — we want to keep educational logs tracked.
+
+# --- Other temp files ---
 
 # --- Windows ---
 Thumbs.db
@@ -30,3 +32,4 @@ System Volume Information/
 *.bak
 *.cache
 node_modules/
+".qwen/"  

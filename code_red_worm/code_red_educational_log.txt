@@ -1,0 +1,71 @@
+[5/4/2026 6:38:45 AM] ============================================
+[5/4/2026 6:38:45 AM] EDUCATIONAL CODE RED WORM DEMONSTRATION
+[5/4/2026 6:38:45 AM] Date: 5/4/2026 6:38:45 AM
+[5/4/2026 6:38:45 AM] ============================================
+[5/4/2026 6:38:45 AM] 
+[5/4/2026 6:38:45 AM] === PHASE 1: IIS Buffer Overflow Exploit Simulation ===
+[5/4/2026 6:38:45 AM] CVE: CVE-2001-0500 / CVE-2001-0506
+[5/4/2026 6:38:45 AM] TYPE: Buffer overflow in idq.dll (Indexing Service ISAPI)
+[5/4/2026 6:38:45 AM] TARGET: Windows 2000 / IIS 4.0 and 5.0
+[5/4/2026 6:38:45 AM] PORT: 80 (HTTP)
+[5/4/2026 6:38:45 AM] 
+[5/4/2026 6:38:45 AM] SIMULATED: Would scan random IPs for port 80 (HTTP)
+[5/4/2026 6:38:45 AM] SIMULATED: Would check for IIS 4.0/5.0 server
+[5/4/2026 6:38:45 AM] SIMULATED: Would send crafted HTTP GET to /default.ida
+[5/4/2026 6:38:45 AM] SIMULATED: GET query string would overflow buffer in idq.dll
+[5/4/2026 6:38:45 AM] SIMULATED: Shellcode would execute in IIS process memory
+[5/4/2026 6:38:45 AM] 
+[5/4/2026 6:38:45 AM] EXPLOIT URL PATTERN (simulated):
+[5/4/2026 6:38:45 AM]   GET /default.ida?[AAAA...shellcode...AAAA] HTTP/1.1
+[5/4/2026 6:38:45 AM]   Host: target-server.com
+[5/4/2026 6:38:45 AM] 
+[5/4/2026 6:38:45 AM] NOTE: The entire worm fit in a single HTTP request (~4KB)
+[5/4/2026 6:38:45 AM] NOTE: No files were written - worm ran entirely in memory
+[5/4/2026 6:38:45 AM] 
+[5/4/2026 6:38:45 AM] === PHASE 2: In-Memory Replication Simulation ===
+[5/4/2026 6:38:45 AM] 
+[5/4/2026 6:38:45 AM] SIMULATED: Would generate random IP addresses to scan
+[5/4/2026 6:38:45 AM] SIMULATED: Would use 100 threads for rapid propagation
+[5/4/2026 6:38:45 AM] SIMULATED: 2 threads scanning local network
+[5/4/2026 6:38:45 AM] SIMULATED: 98 threads scanning random internet IPs
+[5/4/2026 6:38:45 AM] 
+[5/4/2026 6:38:45 AM] SAMPLE TARGET IPs (simulated):
+[5/4/2026 6:38:45 AM]   - 45.123.67.89 (random internet)
+[5/4/2026 6:38:45 AM]   - 10.0.0.55 (local network)
+[5/4/2026 6:38:45 AM]   - 172.16.0.12 (local network)
+[5/4/2026 6:38:45 AM]   - 89.201.34.12 (random internet)
+[5/4/2026 6:38:45 AM]   - 203.45.167.9 (random internet)
+[5/4/2026 6:38:45 AM] 
+[5/4/2026 6:38:45 AM] NOTE: 100 threads made Code Red spread extremely fast
+[5/4/2026 6:38:45 AM] NOTE: ~359,000 servers infected in just 14 hours
+[5/4/2026 6:38:45 AM] NOTE: Peak infection rate was ~2,000 new servers per minute
+[5/4/2026 6:38:45 AM] 
+[5/4/2026 6:38:45 AM] === PHASE 3: Time-Based Behavior Simulation ===
+[5/4/2026 6:38:45 AM] 
+[5/4/2026 6:38:45 AM] PHASE: REPLICATION (Days 1-19)
+[5/4/2026 6:38:45 AM] Behavior: Spread to as many servers as possible
+[5/4/2026 6:38:45 AM] SIMULATED: Would generate exploit requests to random IPs
+[5/4/2026 6:38:46 AM] 
+[5/4/2026 6:38:46 AM] NOTE: DDoS target was 198.133.219.25 (www.whitehouse.gov)
+[5/4/2026 6:38:46 AM] NOTE: DDoS was scheduled for the 20th-27th of each month
+[5/4/2026 6:38:46 AM] NOTE: Microsoft patch stopped most infections before DDoS phase
+[5/4/2026 6:38:46 AM] 
+[5/4/2026 6:38:46 AM] === PHASE 4: DDoS Attack Simulation ===
+[5/4/2026 6:38:46 AM] 
+[5/4/2026 6:38:46 AM] SIMULATED: Would send HTTP GET requests to: http://198.133.219.25
+[5/4/2026 6:38:46 AM] SIMULATED: Each infected server would send 100+ requests
+[5/4/2026 6:38:46 AM] SIMULATED: With 359,000+ servers, that's 35900000+ total requests
+[5/4/2026 6:38:46 AM] 
+[5/4/2026 6:38:46 AM] CALCULATED IMPACT (simulated):
+[5/4/2026 6:38:46 AM]   Infected servers: ~359,000
+[5/4/2026 6:38:46 AM]   Requests per server: 100
+[5/4/2026 6:38:46 AM]   Total requests: ~35900000
+[5/4/2026 6:38:46 AM] 
+[5/4/2026 6:38:46 AM] NOTE: DDoS phase never actually executed at full scale
+[5/4/2026 6:38:46 AM] NOTE: Patches and server reboots cleaned most infections
+[5/4/2026 6:38:46 AM] NOTE: A patched version (Code Red II) appeared in August 2001
+[5/4/2026 6:38:46 AM] 
+[5/4/2026 6:38:46 AM] === PHASE 5: Website Defacement Simulation ===
+[5/4/2026 6:38:46 AM] 
+[5/4/2026 6:38:46 AM] SIMULATED: Would modify website content on infected server
+[5/4/2026 6:38:46 AM] DEFACEMENT MESSAGE:

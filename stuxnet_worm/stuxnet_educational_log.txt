@@ -1,0 +1,89 @@
+[5/4/2026 6:38:33 AM] ============================================
+[5/4/2026 6:38:33 AM] EDUCATIONAL STUXNET WORM DEMONSTRATION
+[5/4/2026 6:38:33 AM] Date: 5/4/2026 6:38:33 AM
+[5/4/2026 6:38:33 AM] ============================================
+[5/4/2026 6:38:33 AM] 
+[5/4/2026 6:38:33 AM] === PHASE 1: LNK File Exploit Simulation ===
+[5/4/2026 6:38:33 AM] CVE: CVE-2010-2568
+[5/4/2026 6:38:33 AM] TYPE: Buffer overflow in Shell32.dll LNK parser
+[5/4/2026 6:38:33 AM] SEVERITY: Critical - no user interaction required
+[5/4/2026 6:38:33 AM] 
+[5/4/2026 6:38:33 AM] SIMULATED: Would create malicious .LNK file on USB drive
+[5/4/2026 6:38:33 AM] SIMULATED: .LNK would trigger exploit when viewed in Explorer
+[5/4/2026 6:38:33 AM] SIMULATED: Would load malicious DLL via icon reference
+[5/4/2026 6:38:33 AM] SIMULATED: DLL contains shellcode executed via buffer overflow
+[5/4/2026 6:38:33 AM] 
+[5/4/2026 6:38:33 AM] NOTE: This required ZERO user interaction
+[5/4/2026 6:38:33 AM] NOTE: Simply opening the USB drive folder in Explorer was enough
+[5/4/2026 6:38:33 AM] NOTE: Microsoft issued out-of-band emergency patch
+[5/4/2026 6:38:33 AM] 
+[5/4/2026 6:38:33 AM] === PHASE 2: Privilege Escalation Simulation ===
+[5/4/2026 6:38:33 AM] CVE: CVE-2010-2772
+[5/4/2026 6:38:33 AM] TYPE: Kernel-mode vulnerability via Print Spooler
+[5/4/2026 6:38:33 AM] GOAL: Escalate from user to SYSTEM privileges
+[5/4/2026 6:38:33 AM] 
+[5/4/2026 6:38:33 AM] SIMULATED: Would exploit Print Spooler for privilege escalation
+[5/4/2026 6:38:33 AM] SIMULATED: Would install kernel-mode rootkit driver
+[5/4/2026 6:38:33 AM] SIMULATED: Rootkit would hide Stuxnet files and processes
+[5/4/2026 6:38:34 AM] SIMULATED: Would hide registry keys: HKLM\SYSTEM\CurrentControlSet\Services\*
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] ROOTKIT DRIVER FILES (simulated):
+[5/4/2026 6:38:34 AM]   - mrxcls.sys  (rootkit driver)
+[5/4/2026 6:38:34 AM]   - mrxnet.sys  (network rootkit)
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] NOTE: Used stolen Realtek and JMicron code-signing certificates
+[5/4/2026 6:38:34 AM] NOTE: Signed drivers appeared legitimate to Windows
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] === PHASE 3: Network Propagation Simulation ===
+[5/4/2026 6:38:34 AM] SIMULATED: Would scan local network for port 445 (SMB)
+[5/4/2026 6:38:34 AM] SIMULATED: Would attempt MS08-067 exploit on unpatched systems
+[5/4/2026 6:38:34 AM] SIMULATED: Would exploit Print Spooler on authenticated systems
+[5/4/2026 6:38:34 AM] SIMULATED: Would copy itself to remote machines as svchost.exe
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] NOTE: Stuxnet was designed to spread ONLY within specific networks
+[5/4/2026 6:38:34 AM] NOTE: It checked for specific PLC configurations before activating
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] === PHASE 4: PLC Targeting Simulation ===
+[5/4/2026 6:38:34 AM] TARGET: Siemens S7-300/S7-400 PLCs
+[5/4/2026 6:38:34 AM] SOFTWARE: Siemens STEP 7 programming software
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] SIMULATED: Would search for Siemens STEP 7 software
+[5/4/2026 6:38:34 AM] SIMULATED: Would identify S7-315/S7-417 PLC models
+[5/4/2026 6:38:34 AM] SIMULATED: Would check frequency converter (1000-1066 Hz)
+[5/4/2026 6:38:34 AM] SIMULATED: Would modify centrifuge code to cause damage
+[5/4/2026 6:38:34 AM] SIMULATED: Would install sensor spoofing to hide changes
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] PLC MODIFICATION (simulated):
+[5/4/2026 6:38:34 AM]   1. Increase centrifuge speed to 1066 Hz (normal: 1000 Hz)
+[5/4/2026 6:38:34 AM]   2. Hold for 15 minutes, then return to normal
+[5/4/2026 6:38:34 AM]   3. Repeat cycle to cause gradual physical damage
+[5/4/2026 6:38:34 AM]   4. Replay normal sensor readings to operators
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] NOTE: This caused centrifuges to physically fail/destroy
+[5/4/2026 6:38:34 AM] NOTE: Operators saw normal readings while damage occurred
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] === PHASE 5: Sensor Data Spoofing Simulation ===
+[5/4/2026 6:38:34 AM] SIMULATED: Would record normal sensor readings
+[5/4/2026 6:38:34 AM] SIMULATED: Would replay recorded data to SCADA interface
+[5/4/2026 6:38:34 AM] SIMULATED: Actual PLC would operate differently from displayed values
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] SPOOFED VALUES (simulated):
+[5/4/2026 6:38:34 AM]   Centrifuge Speed: 1000 Hz (actual: 1066 Hz)
+[5/4/2026 6:38:34 AM]   Pressure: Normal (actual: Elevated)
+[5/4/2026 6:38:34 AM]   Temperature: 75°C (actual: 95°C)
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] NOTE: This is why Stuxnet wasn't discovered for months
+[5/4/2026 6:38:34 AM] NOTE: Operators had no reason to suspect the system readings
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] === PHASE 6: Self-Preservation and Cleanup ===
+[5/4/2026 6:38:34 AM] SIMULATED: Would check if current date > 2012-06-24
+[5/4/2026 6:38:34 AM] SIMULATED: If expired, would delete all Stuxnet files
+[5/4/2026 6:38:34 AM] SIMULATED: If not expired, would continue operations
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] NOTE: Kill date was June 24, 2012
+[5/4/2026 6:38:34 AM] NOTE: Stuxnet was discovered before this date (2010)
+[5/4/2026 6:38:34 AM] 
+[5/4/2026 6:38:34 AM] ============================================
+[5/4/2026 6:38:34 AM] DEMONSTRATION COMPLETE
+[5/4/2026 6:38:34 AM] No actual harm was done - this is educational
+[5/4/2026 6:38:34 AM] ============================================
