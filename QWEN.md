@@ -6,11 +6,14 @@ This is an **educational cybersecurity research repository** containing annotate
 
 | Sample | Year | Type | Directory |
 |--------|------|------|-----------|
-| ILOVEYOU Worm | 2000 | VBScript email worm | `iloveyou_worm/` |
+| Brain | 1986 | Boot sector virus | `brain_virus/` |
 | Melissa Virus | 1999 | VBA macro virus | `melissa_virus/` |
-| Conficker Worm | 2008 | Network/botnet worm | `conficker_worm/` |
+| ILOVEYOU Worm | 2000 | VBScript email worm | `iloveyou_worm/` |
 | Code Red Worm | 2001 | Fileless HTTP worm | `code_red_worm/` |
+| Conficker Worm | 2008 | Network/botnet worm | `conficker_worm/` |
 | Stuxnet | 2010 | SCADA cyberweapon | `stuxnet_worm/` |
+| WannaCry | 2017 | Ransomware + worm | `wannacry_ransomware/` |
+| NotPetya | 2017 | Wiper (fake ransomware) | `notpetya_ransomware/` |
 
 All recreations are **SAFETY-MODIFIED** for educational purposes:
 - All destructive operations are commented out
@@ -62,6 +65,6 @@ All recreations are **SAFETY-MODIFIED** for educational purposes:
 ## Future Research Candidates
 
 These are tracked in the main README's "Future Research" section:
-- WannaCry (2017), NotPetya (2017), Mirai (2016)
-- SQL Slammer (2003), Sobig.F (2003), Flame (2012)
-- CIH/Chernobyl (1998), Brain (1986)
+- Mirai (2016), SQL Slammer (2003), Sobig.F (2003)
+- Flame (2012), CIH/Chernobyl (1998)
+- DarkSide/Colonial Pipeline (2021), Log4Shell exploits (2021)

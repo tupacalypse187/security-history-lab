@@ -1,0 +1,84 @@
+[5/4/2026 6:51:50 AM] ============================================
+[5/4/2026 6:51:50 AM] EDUCATIONAL BRAIN VIRUS DEMONSTRATION
+[5/4/2026 6:51:51 AM] Date: 5/4/2026 6:51:50 AM
+[5/4/2026 6:51:51 AM] ============================================
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] === PHASE 1: Boot Sector Infection Simulation ===
+[5/4/2026 6:51:51 AM] TARGET: 512-byte boot sector of floppy disk
+[5/4/2026 6:51:51 AM] MEDIA: 5.25-inch (360KB/1.2MB) and 3.5-inch (720KB/1.44MB) floppy disks
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] SIMULATED: Would read boot sector of floppy disk
+[5/4/2026 6:51:51 AM] SIMULATED: Would check for Brain signature (already infected?)
+[5/4/2026 6:51:51 AM] SIMULATED: Would relocate original boot sector to track 0, sector 3
+[5/4/2026 6:51:51 AM] SIMULATED: Would write virus code to track 0, sector 1 (boot sector)
+[5/4/2026 6:51:51 AM] SIMULATED: Would mark original boot sector location as 'bad'
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] BOOT SECTOR LAYOUT (simulated):
+[5/4/2026 6:51:51 AM]   Track 0, Sector 1: Brain virus code (512 bytes)
+[5/4/2026 6:51:51 AM]   Track 0, Sector 3: Original boot sector (moved here)
+[5/4/2026 6:51:51 AM]   Signature: 'Brain' at offset 3
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] === PHASE 2: INT 13h Hook Simulation ===
+[5/4/2026 6:51:51 AM] INTERRUPT: BIOS INT 13h (disk services)
+[5/4/2026 6:51:51 AM] GOAL: Intercept all disk reads/writes for stealth and infection
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] SIMULATED: Would replace INT 13h handler with Brain code
+[5/4/2026 6:51:51 AM] SIMULATED: Would intercept disk READ requests:
+[5/4/2026 6:51:51 AM]   - If reading boot sector of infected disk:
+[5/4/2026 6:51:51 AM]     -> Return ORIGINAL clean boot sector (stealth)
+[5/4/2026 6:51:51 AM] SIMULATED: Would intercept disk WRITE requests:
+[5/4/2026 6:51:51 AM]   - If writing to clean disk:
+[5/4/2026 6:51:51 AM]     -> Infect boot sector first, then allow write
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] NOTE: This was one of the first uses of stealth in malware
+[5/4/2026 6:51:51 AM] NOTE: Users couldn't detect infection by reading the disk
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] === PHASE 3: Stealth Mechanism ===
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] STEALTH BEHAVIOR (simulated):
+[5/4/2026 6:51:51 AM]   Trigger: INT 13h, AH=02h (read), Track 0, Sector 1
+[5/4/2026 6:51:51 AM]   Action:  Redirect to Track 0, Sector 3 (original boot sector)
+[5/4/2026 6:51:51 AM]   Result:  User reads clean disk - cannot detect infection
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] NOTE: This technique was later used by many sophisticated malware
+[5/4/2026 6:51:51 AM] NOTE: Rootkits use similar interception techniques today
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] === PHASE 4: Bad Sector Marking ===
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] SIMULATED: Would modify FAT to mark sectors as bad
+[5/4/2026 6:51:51 AM]   Track 0, Sector 1: Marked as bad (contains virus)
+[5/4/2026 6:51:51 AM]   Track 0, Sector 2: Marked as bad (backup)
+[5/4/2026 6:51:51 AM]   FAT entry: FFF7h (bad cluster marker)
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] NOTE: This reduced available disk space slightly
+[5/4/2026 6:51:51 AM] NOTE: Users noticed a few 'bad sectors' but thought it was disk damage
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] === PHASE 5: Brain Signature (Embedded Message) ===
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] EMBEDDED TEXT in Brain virus:
+[5/4/2026 6:51:51 AM] Welcome to the Dungeon
+(c) 1986 Basit & Amjads (pvt) Ltd.
+12-KM, Main Boulevard, Gulberg III, LAHORE-PAKISTAN
+Phone: +92-42-833439, 833440
+Beware of this VIRUS..... Contact us for vaccination
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] NOTE: This was a calling card, not a destructive message
+[5/4/2026 6:51:51 AM] NOTE: The Amjad brothers wanted to offer a cure for a fee
+[5/4/2026 6:51:51 AM] NOTE: This text was visible in the binary of infected disks
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] === PHASE 6: Global Spread Simulation ===
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] SPREAD PATTERN (simulated):
+[5/4/2026 6:51:51 AM]   1986: Pakistan (origin)
+[5/4/2026 6:51:51 AM]   1987: United States, United Kingdom
+[5/4/2026 6:51:51 AM]   1988: Germany, Netherlands, Canada
+[5/4/2026 6:51:51 AM]   1989: Australia, Sweden, India, Japan
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] ESTIMATED INFECTIONS: Thousands of computers worldwide
+[5/4/2026 6:51:51 AM] NOTE: First computer virus to achieve global spread
+[5/4/2026 6:51:51 AM] NOTE: Spread via floppy disk exchange, not networks
+[5/4/2026 6:51:51 AM] 
+[5/4/2026 6:51:51 AM] ============================================
+[5/4/2026 6:51:52 AM] DEMONSTRATION COMPLETE
+[5/4/2026 6:51:52 AM] No actual harm was done - this is educational
+[5/4/2026 6:51:52 AM] ============================================

@@ -1,0 +1,115 @@
+[5/4/2026 6:51:52 AM] ============================================
+[5/4/2026 6:51:52 AM] EDUCATIONAL WannaCry RANSOMWARE DEMONSTRATION
+[5/4/2026 6:51:52 AM] Date: 5/4/2026 6:51:52 AM
+[5/4/2026 6:51:52 AM] ============================================
+[5/4/2026 6:51:52 AM] 
+[5/4/2026 6:51:52 AM] === PHASE 1: EternalBlue Exploit Simulation ===
+[5/4/2026 6:51:52 AM] CVE: CVE-2017-0144 (EternalBlue)
+[5/4/2026 6:51:52 AM] TARGET: Windows SMBv1 (Server Message Block protocol)
+[5/4/2026 6:51:52 AM] PORT: 445 (SMB)
+[5/4/2026 6:51:52 AM] 
+[5/4/2026 6:51:52 AM] SIMULATED: Would scan for port 445 (SMB) on network
+[5/4/2026 6:51:52 AM] SIMULATED: Would negotiate SMB connection with target
+[5/4/2026 6:51:52 AM] SIMULATED: Would send crafted Tree Connect with buffer overflow
+[5/4/2026 6:51:52 AM] SIMULATED: Would trigger overflow in srv.sys kernel driver
+[5/4/2026 6:51:52 AM] SIMULATED: Would install DoublePulsar backdoor
+[5/4/2026 6:51:52 AM] SIMULATED: Would deliver WannaCry payload via backdoor
+[5/4/2026 6:51:52 AM] 
+[5/4/2026 6:51:52 AM] NOTE: MS17-010 patch was available 2 months before WannaCry
+[5/4/2026 6:51:52 AM] NOTE: EternalBlue was allegedly an NSA exploit leaked by Shadow Brokers
+[5/4/2026 6:51:52 AM] 
+[5/4/2026 6:51:52 AM] === PHASE 2: File Encryption Simulation ===
+[5/4/2026 6:51:52 AM] 
+[5/4/2026 6:51:52 AM] ENCRYPTION ALGORITHM:
+[5/4/2026 6:51:52 AM]   Layer 1: AES-128-CBC (symmetric, per-machine key)
+[5/4/2026 6:51:52 AM]   Layer 2: RSA-2048 (asymmetric, encrypts the AES key)
+[5/4/2026 6:51:52 AM]   Result: Only attacker's private key can decrypt
+[5/4/2026 6:51:52 AM] 
+[5/4/2026 6:51:52 AM] SIMULATED: Would encrypt files with these extensions:
+[5/4/2026 6:51:52 AM]   .doc
+[5/4/2026 6:51:52 AM]   .docx
+[5/4/2026 6:51:52 AM]   .xls
+[5/4/2026 6:51:52 AM]   .xlsx
+[5/4/2026 6:51:52 AM]   .ppt
+[5/4/2026 6:51:52 AM]   .pptx
+[5/4/2026 6:51:52 AM]   .pdf
+[5/4/2026 6:51:52 AM]   .zip
+[5/4/2026 6:51:52 AM]   .rar
+[5/4/2026 6:51:52 AM]   .jpg
+[5/4/2026 6:51:52 AM]   .jpeg
+[5/4/2026 6:51:53 AM]   .png
+[5/4/2026 6:51:53 AM]   .mp3
+[5/4/2026 6:51:53 AM]   .mp4
+[5/4/2026 6:51:53 AM]   .avi
+[5/4/2026 6:51:53 AM]   .mdb
+[5/4/2026 6:51:53 AM]   .accdb
+[5/4/2026 6:51:53 AM]   .sql
+[5/4/2026 6:51:53 AM]   .bak
+[5/4/2026 6:51:53 AM]   .csv
+[5/4/2026 6:51:53 AM]   .rtf
+[5/4/2026 6:51:53 AM] 
+[5/4/2026 6:51:53 AM] SIMULATED: Encrypted files would be renamed: file.ext.WNCRY
+[5/4/2026 6:51:53 AM] SIMULATED: Original files would be deleted after encryption
+[5/4/2026 6:51:53 AM] SIMULATED: Encryption key stored in: files.wnry (RSA-encrypted)
+[5/4/2026 6:51:53 AM] 
+[5/4/2026 6:51:53 AM] NOTE: RSA-2048 means decryption is computationally infeasible
+[5/4/2026 6:51:53 AM] NOTE: Without the private key, recovery requires brute force (impractical)
+[5/4/2026 6:51:53 AM] 
+[5/4/2026 6:51:53 AM] === PHASE 3: Ransom Note ===
+[5/4/2026 6:51:53 AM] 
+[5/4/2026 6:51:53 AM] WannaCry displayed this message:
+[5/4/2026 6:51:53 AM] --------------------------------------------------
+[5/4/2026 6:51:53 AM]   Ooops, your files have been encrypted!
+[5/4/2026 6:51:53 AM] 
+[5/4/2026 6:51:53 AM]   What happened to your files?
+[5/4/2026 6:51:53 AM]   - All of your files are encrypted with AES-128-CBC + RSA-2048
+[5/4/2026 6:51:53 AM]   - You can only decrypt with our private key
+[5/4/2026 6:51:53 AM] 
+[5/4/2026 6:51:53 AM]   How to pay?
+[5/4/2026 6:51:53 AM]   - Send $300 USD in Bitcoin to: [wallet address]
+[5/4/2026 6:51:54 AM]   - Payment increases to $600 after 3 days
+[5/4/2026 6:51:54 AM]   - All files deleted after 7 days without payment
+[5/4/2026 6:51:54 AM] 
+[5/4/2026 6:51:54 AM]   How to pay? (Instructions)
+[5/4/2026 6:51:54 AM]   1. Create Bitcoin wallet
+[5/4/2026 6:51:54 AM]   2. Send $300 to address: 115p7UMMjooj1iannh96g4zZuZ...
+[5/4/2026 6:51:54 AM]   3. Wait for decryption tool
+[5/4/2026 6:51:54 AM] --------------------------------------------------
+[5/4/2026 6:51:54 AM] 
+[5/4/2026 6:51:54 AM] NOTE: Bitcoin addresses were unique per victim
+[5/4/2026 6:51:54 AM] NOTE: Payment didn't guarantee decryption
+[5/4/2026 6:51:54 AM] NOTE: Many victims paid and didn't get their files back
+[5/4/2026 6:51:54 AM] 
+[5/4/2026 6:51:54 AM] === PHASE 4: Worm Propagation Simulation ===
+[5/4/2026 6:51:54 AM] 
+[5/4/2026 6:51:54 AM] SPREAD METHODS (simulated):
+[5/4/2026 6:51:54 AM]   1. EternalBlue exploit (port 445)
+[5/4/2026 6:51:54 AM]   2. DoublePulsar backdoor (if present)
+[5/4/2026 6:51:54 AM]   3. SMB admin share brute-force
+[5/4/2026 6:51:54 AM] 
+[5/4/2026 6:51:54 AM] SIMULATED: Would scan random IPs for port 445
+[5/4/2026 6:51:54 AM] SIMULATED: Would attempt SMB authentication with default passwords
+[5/4/2026 6:51:54 AM] SIMULATED: Would copy payload to target via admin shares
+[5/4/2026 6:51:54 AM] 
+[5/4/2026 6:51:54 AM] NOTE: ~200,000 computers infected in first week
+[5/4/2026 6:51:55 AM] NOTE: Spread to 150+ countries within days
+[5/4/2026 6:51:55 AM] 
+[5/4/2026 6:51:55 AM] === PHASE 5: Kill Switch ===
+[5/4/2026 6:51:55 AM] 
+[5/4/2026 6:51:55 AM] KILL SWITCH DOMAIN: iuqerfsodp9ifjaposdfjhgosdfgja...
+[5/4/2026 6:51:55 AM] MECHANISM: If domain exists -> malware exits immediately
+[5/4/2026 6:51:55 AM] DISCOVERED BY: Marcus Hutchins (@MalwareTech)
+[5/4/2026 6:51:55 AM] 
+[5/4/2026 6:51:55 AM] SEQUENCE OF EVENTS:
+[5/4/2026 6:51:55 AM]   1. Hutchins analyzed WannaCry binary
+[5/4/2026 6:51:55 AM]   2. Found hardcoded domain check
+[5/4/2026 6:51:55 AM]   3. Registered domain for $10.69
+[5/4/2026 6:51:55 AM]   4. WannaCry stopped spreading globally
+[5/4/2026 6:51:55 AM] 
+[5/4/2026 6:51:55 AM] NOTE: Hutchins was later arrested by FBI (charges dropped)
+[5/4/2026 6:51:55 AM] NOTE: This is one of the most famous malware analysis stories
+[5/4/2026 6:51:55 AM] 
+[5/4/2026 6:51:55 AM] ============================================
+[5/4/2026 6:51:55 AM] DEMONSTRATION COMPLETE
+[5/4/2026 6:51:55 AM] No actual harm was done - this is educational
+[5/4/2026 6:51:55 AM] ============================================

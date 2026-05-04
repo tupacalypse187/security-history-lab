@@ -32,4 +32,4 @@ System Volume Information/
 *.bak
 *.cache
 node_modules/
-".qwen/"  
+.qwen/  

@@ -1,0 +1,108 @@
+[5/4/2026 6:51:55 AM] ============================================
+[5/4/2026 6:51:55 AM] EDUCATIONAL NotPetya WIPER DEMONSTRATION
+[5/4/2026 6:51:55 AM] Date: 5/4/2026 6:51:55 AM
+[5/4/2026 6:51:55 AM] ============================================
+[5/4/2026 6:51:55 AM] 
+[5/4/2026 6:51:55 AM] === PHASE 1: Supply Chain Infection (M.E.Doc) ===
+[5/4/2026 6:51:55 AM] TARGET: M.E.Doc accounting software (Ukraine)
+[5/4/2026 6:51:55 AM] TYPE: Supply chain attack via compromised update
+[5/4/2026 6:51:55 AM] 
+[5/4/2026 6:51:55 AM] SIMULATED: Would compromise M.E.Doc update servers
+[5/4/2026 6:51:55 AM] SIMULATED: Would embed NotPetya in legitimate update package
+[5/4/2026 6:51:56 AM] SIMULATED: Would distribute to all M.E.Doc users via auto-update
+[5/4/2026 6:51:56 AM] SIMULATED: Would activate when user installed update
+[5/4/2026 6:51:56 AM] 
+[5/4/2026 6:51:56 AM] SUPPLY CHAIN IMPACT:
+[5/4/2026 6:51:56 AM]   M.E.Doc users: ~400,000+ organizations in Ukraine
+[5/4/2026 6:51:56 AM]   Initial infections: Thousands in first hour
+[5/4/2026 6:51:56 AM]   Spread: Global via EternalBlue and other vectors
+[5/4/2026 6:51:56 AM] 
+[5/4/2026 6:51:56 AM] NOTE: This was the first major supply chain attack of its kind
+[5/4/2026 6:51:56 AM] NOTE: Bypassed all security controls (trusted vendor update)
+[5/4/2026 6:51:56 AM] 
+[5/4/2026 6:51:56 AM] === PHASE 2: Lateral Movement Simulation ===
+[5/4/2026 6:51:56 AM] 
+[5/4/2026 6:51:56 AM] METHOD 1: EternalBlue (CVE-2017-0144)
+[5/4/2026 6:51:56 AM]   Target: SMBv1 vulnerability (MS17-010)
+[5/4/2026 6:51:56 AM]   SIMULATED: Would scan port 445, exploit unpatched systems
+[5/4/2026 6:51:56 AM] 
+[5/4/2026 6:51:56 AM] METHOD 2: EternalRomance (CVE-2017-0145/0146/0147/0148)
+[5/4/2026 6:51:56 AM]   Target: SMBv1 even on PATCHED systems
+[5/4/2026 6:51:56 AM]   SIMULATED: Would exploit alternative SMB vulnerabilities
+[5/4/2026 6:51:56 AM]   NOTE: This allowed spread even to patched machines
+[5/4/2026 6:51:56 AM] 
+[5/4/2026 6:51:56 AM] METHOD 3: Mimikatz Credential Theft
+[5/4/2026 6:51:56 AM]   Target: Windows credential store (LSASS memory)
+[5/4/2026 6:51:56 AM]   SIMULATED: Would extract passwords from LSASS process memory
+[5/4/2026 6:51:56 AM]   SIMULATED: Would use extracted credentials for admin share access
+[5/4/2026 6:51:56 AM]   NOTE: Mimikatz is a legitimate pentest tool abused here
+[5/4/2026 6:51:56 AM] 
+[5/4/2026 6:51:56 AM] METHOD 4: PsExec Abuse
+[5/4/2026 6:51:56 AM]   Target: Legitimate Sysinternals PsExec tool
+[5/4/2026 6:51:56 AM]   SIMULATED: Would use stolen credentials + PsExec
+[5/4/2026 6:51:56 AM]   SIMULATED: Would copy NotPetya to remote machine and execute
+[5/4/2026 6:51:56 AM]   NOTE: 'Living off the land' technique (legitimate tools)
+[5/4/2026 6:51:56 AM] 
+[5/4/2026 6:51:56 AM] METHOD 5: WMI Remote Execution
+[5/4/2026 6:51:56 AM]   Target: Windows Management Instrumentation
+[5/4/2026 6:51:56 AM]   SIMULATED: Would use WMI to execute commands on remote machines
+[5/4/2026 6:51:56 AM]   SIMULATED: Would copy NotPetya via admin shares + WMI
+[5/4/2026 6:51:56 AM]   NOTE: Another 'living off the land' technique
+[5/4/2026 6:51:56 AM] 
+[5/4/2026 6:51:56 AM] === PHASE 3: MBR Encryption Simulation ===
+[5/4/2026 6:51:56 AM] TARGET: Master Boot Record (MBR) - first sector of hard disk
+[5/4/2026 6:51:56 AM] IMPACT: System cannot boot, data is inaccessible
+[5/4/2026 6:51:56 AM] 
+[5/4/2026 6:51:56 AM] SIMULATED: Would read MBR (first 512 bytes of disk)
+[5/4/2026 6:51:56 AM] SIMULATED: Would overwrite MBR with custom NotPetya bootloader
+[5/4/2026 6:51:56 AM] SIMULATED: Custom bootloader would:
+[5/4/2026 6:51:56 AM]   1. Display ransom note on boot
+[5/4/2026 6:51:56 AM]   2. Load Salsa20 encryption algorithm
+[5/4/2026 6:51:56 AM]   3. Encrypt all files on disk
+[5/4/2026 6:51:56 AM]   4. Use WRONG hardcoded key (making recovery impossible)
+[5/4/2026 6:51:56 AM] 
+[5/4/2026 6:51:56 AM] CRITICAL: NotPetya was a WIPER, not ransomware
+[5/4/2026 6:51:56 AM]   - The encryption was designed to be irreversible
+[5/4/2026 6:51:56 AM]   - Payment would NOT have resulted in decryption
+[5/4/2026 6:51:56 AM]   - This was data destruction disguised as ransomware
+[5/4/2026 6:51:57 AM] 
+[5/4/2026 6:51:57 AM] === PHASE 4: Ransom Note (Deceptive) ===
+[5/4/2026 6:51:57 AM] 
+[5/4/2026 6:51:57 AM] NotPetya displayed this message:
+[5/4/2026 6:51:57 AM] --------------------------------------------------
+[5/4/2026 6:51:57 AM]   Ooops, your important files are encrypted.
+[5/4/2026 6:51:57 AM] 
+[5/4/2026 6:51:57 AM]   If you want to decrypt all of your files, you need to pay.
+[5/4/2026 6:51:57 AM]   Pay $300 in Bitcoin to: 14hXdKz5aQZ7W6...
+[5/4/2026 6:51:57 AM]   Contact: proton666@protonmail.com
+[5/4/2026 6:51:57 AM] 
+[5/4/2026 6:51:57 AM]   You have to send payment proof to this email.
+[5/4/2026 6:51:57 AM]   After payment is confirmed, you will receive decryption key.
+[5/4/2026 6:51:57 AM] --------------------------------------------------
+[5/4/2026 6:51:57 AM] 
+[5/4/2026 6:51:57 AM] NOTE: protonmail.com SHUT DOWN the email account quickly
+[5/4/2026 6:51:57 AM] NOTE: Decryption was mathematically impossible (wrong key)
+[5/4/2026 6:51:57 AM] NOTE: This was a wiper disguised as ransomware
+[5/4/2026 6:51:57 AM] NOTE: No victim who paid got their files back
+[5/4/2026 6:51:57 AM] 
+[5/4/2026 6:51:57 AM] === PHASE 5: Global Impact ===
+[5/4/2026 6:51:57 AM] 
+[5/4/2026 6:51:57 AM] MAJOR VICTIMS (estimated damages):
+[5/4/2026 6:51:57 AM]   Maersk (shipping) - $300M+ damage
+[5/4/2026 6:51:57 AM]   Merck (pharma) - $870M+ damage
+[5/4/2026 6:51:57 AM]   FedEx/TNT Express - $400M+ damage
+[5/4/2026 6:51:57 AM]   Mondelez (Oreo/Cadbury) - $196M+ damage
+[5/4/2026 6:51:57 AM]   Saint-Gobain (construction) - $379M+ damage
+[5/4/2026 6:51:58 AM]   Ukrainian government, banks, airports, radiation monitoring
+[5/4/2026 6:51:58 AM] 
+[5/4/2026 6:51:58 AM] TOTAL ESTIMATED DAMAGE: $10+ BILLION USD
+[5/4/2026 6:51:58 AM] 
+[5/4/2026 6:51:58 AM] NOTE: NotPetya was attributed to Russian military (GRU)
+[5/4/2026 6:51:58 AM] NOTE: US, UK, EU, Australia, and NATO all attributed to Russia
+[5/4/2026 6:51:58 AM] NOTE: Called 'most destructive cyberattack in history' at the time
+[5/4/2026 6:51:58 AM] NOTE: Originally targeted Ukraine, spread globally via supply chain
+[5/4/2026 6:51:58 AM] 
+[5/4/2026 6:51:58 AM] ============================================
+[5/4/2026 6:51:58 AM] DEMONSTRATION COMPLETE
+[5/4/2026 6:51:58 AM] No actual harm was done - this is educational
+[5/4/2026 6:51:58 AM] ============================================
