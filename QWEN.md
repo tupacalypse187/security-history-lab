@@ -1,6 +1,14 @@
-# QWEN.md - Security History Lab
+# 📜 QWEN.md - Security History Lab
 
-## Project Context
+## 📑 Table of Contents
+
+- [📋 Project Context](#-project-context)
+- [🛠️ How to Work With This Project](#-how-to-work-with-this-project)
+- [🎨 Code Style Guidelines](#-code-style-guidelines)
+- [🛡️ Safety Requirements](#-safety-requirements)
+- [🔭 Future Research Candidates](#-future-research-candidates)
+
+## 📋 Project Context
 
 This is an **educational cybersecurity research repository** containing annotated recreations of historically significant security events:
 
@@ -23,22 +31,22 @@ All recreations are **SAFETY-MODIFIED** for educational purposes:
 - All network/email activity is logged, not executed
 - Code is extensively annotated for learning
 
-## How to Work With This Project
+## 🛠️ How to Work With This Project
 
-### When Running Code
+### ▶️ When Running Code
 - Source files are `.vbs` or `.vbs.educational` / `.vba.educational`
 - Run with `cscript //nologo <filename>` for safe simulation
 - Each sample has a `run_simulation.bat` for easy execution
 - Always check that destructive operations remain disabled before execution
 
-### When Explaining Code
+### 💬 When Explaining Code
 - Focus on the **mechanism** and **concept**
 - Highlight the vulnerability being exploited
 - Explain the **social engineering** component
 - Discuss the **aftermath** and **security improvements** that resulted
 - Compare to modern equivalents when relevant
 
-### When Adding New Samples
+### ➕ When Adding New Samples
 - Create a directory named `<malware_name>_worm` (or `_virus`, `_malware`, etc.)
 - Include: annotated source, `README.md`, `run_simulation.bat`, log file
 - Maintain the educational annotation style
@@ -46,7 +54,7 @@ All recreations are **SAFETY-MODIFIED** for educational purposes:
 - Add entry to the main README.md samples table
 - Update the future research section if removing a candidate
 
-## Code Style Guidelines
+## 🎨 Code Style Guidelines
 
 - Extensive inline comments for educational clarity
 - Clear separation of different attack phases
@@ -57,7 +65,7 @@ All recreations are **SAFETY-MODIFIED** for educational purposes:
 - Include CVE numbers, dates, and impact statistics
 - **README heading anchors: always use explicit `<a id="..."></a>` tags above `##` headings.** GitHub strips emojis from heading-generated anchors, so ToC links like `[Section](#section)` require manual anchors. Never rely on auto-generated anchors with emoji headings.
 
-## Safety Requirements
+## 🛡️ Safety Requirements
 
 - NEVER uncomment destructive operations
 - ALWAYS include educational simulation markers
@@ -65,7 +73,7 @@ All recreations are **SAFETY-MODIFIED** for educational purposes:
 - Document any additions to the repository
 - Each sample README must end with educational disclaimer
 
-## Future Research Candidates
+## 🔭 Future Research Candidates
 
 These are tracked in the main README's "Future Research" section:
 - Mirai (2016), SQL Slammer (2003), Sobig.F (2003)
