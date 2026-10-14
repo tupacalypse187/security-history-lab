@@ -7,6 +7,7 @@
 ## 📋 Table of Contents
 
 - [🎯 Overview](#overview)
+- [🏗️ Architecture](#architecture)
 - [🗂️ Samples](#samples)
 - [🛡️ Security Lessons](#security-lessons)
 - [🔬 How to Run](#how-to-run)
@@ -32,6 +33,34 @@
 - ✅ Recognize persistence techniques (registry, templates, memory)
 - ✅ Study the evolution from email worms to cyberweapons
 - ✅ Analyze the impact on cybersecurity policy and software design
+
+---
+
+<a id="architecture"></a>
+## 🏗️ Architecture
+
+The lab is a flat collection of self-contained sample folders, not an application: the root README is the index and lesson plan, and every sample folder carries its own README, annotated source recreation, and safe runner. Nothing is shared between samples, so each one can be read, run, and studied in isolation.
+
+```mermaid
+flowchart TD
+    Reader["🎓 Student / researcher"] --> Root["🛡️ Root README<br/>overview · timeline · lessons"]
+    Root --> Folders["🗂️ 10 sample folders"]
+    Folders --> Email["📧 Email malware<br/>ILOVEYOU · Melissa"]
+    Folders --> Worms["🌐 Network worms<br/>Conficker · Code Red"]
+    Folders --> Weapon["☢️ Cyberweapon<br/>Stuxnet"]
+    Folders --> Ransom["💀 Ransomware & wipers<br/>WannaCry · NotPetya"]
+    Folders --> First["🧠 Historical first<br/>Brain"]
+    Folders --> Vulns["🕳️ Vulnerabilities<br/>Heartbleed · Shellshock"]
+    Folders --> Contents["📄 Per-sample contents<br/>README · annotated code · safe runner"]
+    Contents --> Safety["⚖️ Safety model<br/>destructive actions simulated<br/>or commented out"]
+    Contents --> Lessons["🛡️ Security lessons<br/>defenses + policy impact"]
+```
+
+**How a sample is organized**
+
+- **Root README** — catalog of all samples grouped by category, the evolution timeline, cross-cutting security lessons, run instructions, and the legal disclaimer.
+- **Sample folder** (`<name>_<type>/`) — one historical incident per folder, with the annotated recreation source, a per-sample README explaining the mechanism and historical impact, and a safe runner script.
+- **Safety model** — destructive operations are simulated or commented out, so samples can be studied without risk; see the Legal Disclaimer section below.
 
 ---
 
